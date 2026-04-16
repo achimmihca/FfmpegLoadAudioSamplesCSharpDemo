@@ -1,2 +1,3 @@
 # FfmpegLoadAudioSamplesCSharpDemo
-Load raw audio samples from various file formats using ffmpeg
+
+Load raw audio samples from various file formats using ffmpeg via Ffmpeg.Autogen.
