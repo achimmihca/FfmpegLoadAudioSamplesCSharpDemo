@@ -7,8 +7,23 @@ public unsafe class FfmpegAudioLoader
 {
     public void ConfigureFfmpegRootPath()
     {
-        var projectRoot = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..");
-        ffmpeg.RootPath = Path.GetFullPath($"{projectRoot}/FfmpegLibraries/Windows");
+        string osFolder;
+        if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
+        {
+            osFolder = "Windows";
+        }
+        else if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.OSX))
+        {
+            osFolder = "macOS";
+        }
+        else
+        {
+            throw new PlatformNotSupportedException("Unsupported OS");
+        }
+
+        // In .NET 8, the files are copied directly to the output directory
+        ffmpeg.RootPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "FfmpegLibraries", osFolder);
+        Console.WriteLine($"Configured FFmpeg RootPath: {ffmpeg.RootPath}");
     }
 
     public AudioData Load(string filePath, int? targetSampleRate = null, int? targetChannels = null)
