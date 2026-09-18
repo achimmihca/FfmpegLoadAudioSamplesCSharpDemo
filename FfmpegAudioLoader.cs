@@ -24,6 +24,7 @@ public unsafe class FfmpegAudioLoader
         // In .NET 8, the files are copied directly to the output directory
         ffmpeg.RootPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "FfmpegLibraries", osFolder);
         Console.WriteLine($"Configured FFmpeg RootPath: {ffmpeg.RootPath}");
+        Console.WriteLine($"FFmpeg version: {ffmpeg.av_version_info()}");
     }
 
     public AudioData Load(string filePath, int? targetSampleRate = null, int? targetChannels = null)
